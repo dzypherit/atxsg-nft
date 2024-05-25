@@ -108,10 +108,10 @@ useEffect(() => {
   ];
 
   return (
-    <main className="p-4 pb-10 min-h-[100vh] flex items-center justify-center container max-w-screen-lg mx-auto">
-	    <div className="py-20 text-center">
-        <Header />
-        <ConnectButton
+    <main className="p-4 pb-10 min-h-screen flex items-center justify-center container max-w-screen-lg mx-auto">
+    <div className="py-20 text-center">
+      <Header />
+      <ConnectButton
         client={client}
         wallets={wallets}
         accountAbstraction={{
@@ -131,33 +131,33 @@ useEffect(() => {
           title: "Login",
         }}
       />
-        <div className="flex flex-col items-center mt-4">
-          {isContractMetadataLaoding ? (
-            <p>Loading...</p>
-          ) : (
-            <>
-              <MediaRenderer
-                client={client}
-                src={contractMetadata?.image}
-                className="rounded-xl"
-              />
-             <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold mt-4">
-  {contractMetadata?.name}
-</h2>
-<p className="text-base md:text-lg lg:text-xl mt-2">
-  {contractMetadata?.description}
-</p>
-            </>
-          )}
-          {isClaimedSupplyLoading || isTotalSupplyLoading ? (
-            <p>Loading...</p>
-          ) : (
-            <p className="text-lg mt-2 font-bold">
-              Total Claimed: {claimedSupply?.toString()}
+      <div className="flex flex-col items-center mt-4">
+        {isContractMetadataLaoding ? (
+          <p>Loading...</p>
+        ) : (
+          <>
+            <MediaRenderer
+              client={client}
+              src={contractMetadata?.image}
+              className="rounded-xl max-w-full h-auto"
+            />
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold mt-4">
+              {contractMetadata?.name}
+            </h2>
+            <p className="text-base md:text-lg lg:text-xl mt-2">
+              {contractMetadata?.description}
             </p>
-          )}
-          <br/> <br/> 
-          <div>
+          </>
+        )}
+        {isClaimedSupplyLoading || isTotalSupplyLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <p className="text-lg mt-2 font-bold">
+            Total Claimed: {claimedSupply?.toString()}
+          </p>
+        )}
+        <br /> <br />
+        <div>
           <TransactionButton
             transaction={() => claimTo({
               contract: contract,
@@ -167,31 +167,30 @@ useEffect(() => {
             onTransactionConfirmed={async () => {
               alert("Digital Collectible Claimed! \n\nBelow, you can check your Digital Collectibles. \n\n\nIf you don't see your claimed Digital Collectibles, simply refresh the app to check.");
               setQuantity(1);
-          }}
+            }}
           >
             {`Claim Digital Collectible`}
           </TransactionButton>
-          </div>
-            <br/> <br/>
-            <h2>Your Digital Collectibles</h2><br/> <br/>
-            <div style={{ flexDirection: "row", flexWrap: "wrap", width: "500px"}}>
-              <center>
-                        {ownedNFTs && ownedNFTs.length > 0 ? (
-                            ownedNFTs.map((nft) => (
-                                <NFTCard
-                                    key={nft.id}
-                                    nft={nft}
-                                    refetch={getOwnedNFTs}
-                                />
-                            ))
-                            
-                        ) : (
-                            <p>You own 0 Digital Collectibles</p>
-                        )}</center>
-                    </div>
-              </div>
+        </div>
+        <br /> <br />
+        <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold">Your Digital Collectibles</h2>
+        <br /> <br />
+        <div className="flex flex-wrap justify-center">
+          {ownedNFTs && ownedNFTs.length > 0 ? (
+            ownedNFTs.map((nft) => (
+              <NFTCard
+                key={nft.id}
+                nft={nft}
+                refetch={getOwnedNFTs}
+              />
+            ))
+          ) : (
+            <p>You own 0 Digital Collectibles</p>
+          )}
+        </div>
       </div>
-    </main>
+    </div>
+  </main>
   );
 }
 

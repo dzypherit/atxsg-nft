@@ -2,7 +2,6 @@ import { client } from "@/app/client";
 import { NFT } from "thirdweb";
 import { MediaRenderer } from "thirdweb/react";
 import { useState } from "react";
-import html2canvas from "html2canvas";
 
 type OwnedNFTsProps = {
     nft: NFT;
@@ -11,18 +10,6 @@ type OwnedNFTsProps = {
 
 export const NFTCard = ({ nft }: OwnedNFTsProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const saveAsImage = () => {
-        const modalElement = document.getElementById('modal-content');
-        if (modalElement) {
-            html2canvas(modalElement).then((canvas) => {
-                const link = document.createElement('a');
-                link.href = canvas.toDataURL('image/png');
-                link.download = 'nft-share.png';
-                link.click();
-            });
-        }
-    };
 
     return (
         <div style={{ margin: "10px" }}>
@@ -61,7 +48,7 @@ export const NFTCard = ({ nft }: OwnedNFTsProps) => {
                     justifyContent: "center",
                     alignItems: "center"
                 }}>
-                    <div id="modal-content" style={{
+                    <div style={{
                         minWidth: "300px",
                         backgroundColor: "#222",
                         padding: "20px",
@@ -85,7 +72,10 @@ export const NFTCard = ({ nft }: OwnedNFTsProps) => {
                                 }}
                             >Close</button>
                         </div>
-                        <h3 style={{ margin: "10px 0" }}>You are about to save your Digital Collectible</h3>
+                        <h3 style={{ margin: "10px 0" }}>Long press or right-click on the Digital Collectible to save it</h3>
+                        <p style={{ margin: "10px 0" }}>Then you can post in any social media and don't forget to use #ATXSG #ATGotBlockchainTechnology</p>
+                        <br/><br/>
+                        <h1 >{nft.metadata.name}</h1>
                         <MediaRenderer
                             client={client}
                             src={nft.metadata.image}
@@ -94,22 +84,10 @@ export const NFTCard = ({ nft }: OwnedNFTsProps) => {
                                 marginBottom: "10px"
                             }}
                         />
-                        <p >{nft.metadata.name}</p>
-                        <button
-                            onClick={saveAsImage}
-                            style={{
-                                border: "none",
-                                backgroundColor: "#4CAF50",
-                                color: "#fff",
-                                padding: "10px",
-                                borderRadius: "10px",
-                                cursor: "pointer",
-                                marginTop: "10px"
-                            }}
-                        >Save as Image</button>
+                        
                     </div>
                 </div>
             )}
-        </div>
-    );
+        </div>  
+)
 };
