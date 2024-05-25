@@ -157,6 +157,7 @@ useEffect(() => {
             </p>
           )}
           <br/> <br/> 
+          <div>
           <TransactionButton
             transaction={() => claimTo({
               contract: contract,
@@ -164,15 +165,15 @@ useEffect(() => {
               quantity: BigInt(quantity),
             })}
             onTransactionConfirmed={async () => {
-              alert("Digital Collectible Claimed!, You can check your Digital Collectibles below. If you can't see your claimed Digital Collectibles below then you can refresh this app to check your claimed Digital Collectibles");
+              alert("Digital Collectible Claimed! \n\nBelow, you can check your Digital Collectibles. \n\n\nIf you don't see your claimed Digital Collectibles, simply refresh the app to check.");
               setQuantity(1);
           }}
           >
             {`Claim Digital Collectible`}
           </TransactionButton>
-
+          </div>
             <br/> <br/>
-            <h2>Your Digital Collectibles</h2>
+            <h2>Your Digital Collectibles</h2><br/> <br/>
             <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", width: "500px"}}>
                         {ownedNFTs && ownedNFTs.length > 0 ? (
                             ownedNFTs.map((nft) => (
@@ -183,7 +184,7 @@ useEffect(() => {
                                 />
                             ))
                         ) : (
-                            <p>You own 0 Digital Collectibles</p>
+                            <center><p>You own 0 Digital Collectibles</p></center>
                         )}
                     </div>
               </div>
