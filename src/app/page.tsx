@@ -141,12 +141,12 @@ useEffect(() => {
                 src={contractMetadata?.image}
                 className="rounded-xl"
               />
-              <h2 className="text-2xl font-semibold mt-4">
-                {contractMetadata?.name}
-              </h2>
-              <p className="text-lg mt-2">
-                {contractMetadata?.description}
-              </p>
+             <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold mt-4">
+  {contractMetadata?.name}
+</h2>
+<p className="text-base md:text-lg lg:text-xl mt-2">
+  {contractMetadata?.description}
+</p>
             </>
           )}
           {isClaimedSupplyLoading || isTotalSupplyLoading ? (
@@ -174,7 +174,8 @@ useEffect(() => {
           </div>
             <br/> <br/>
             <h2>Your Digital Collectibles</h2><br/> <br/>
-            <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", width: "500px"}}>
+            <div style={{ flexDirection: "row", flexWrap: "wrap", width: "500px"}}>
+              <center>
                         {ownedNFTs && ownedNFTs.length > 0 ? (
                             ownedNFTs.map((nft) => (
                                 <NFTCard
@@ -183,9 +184,10 @@ useEffect(() => {
                                     refetch={getOwnedNFTs}
                                 />
                             ))
+                            
                         ) : (
-                            <center><p>You own 0 Digital Collectibles</p></center>
-                        )}
+                            <p>You own 0 Digital Collectibles</p>
+                        )}</center>
                     </div>
               </div>
       </div>
