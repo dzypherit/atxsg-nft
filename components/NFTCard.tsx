@@ -73,7 +73,7 @@ export const NFTCard = ({ nft }: OwnedNFTsProps) => {
                             >Close</button>
                         </div>
                         <h3 style={{ margin: "10px 0" }}>Long press or right-click on the Digital Collectible to save it</h3>
-                        <p style={{ margin: "10px 0" }}>Then you can post in any social media and don't forget to use #ATXSG #ATGotBlockchainTechnology</p>
+                        <p style={{ margin: "10px 0" }}>Then you can share it on any social media platform, and don't forget to use the hashtags #ATXSG and #ATGotBlockchainTechnology.</p>
                         <br/><br/>
                         <h1 >{nft.metadata.name}</h1>
                         <MediaRenderer
