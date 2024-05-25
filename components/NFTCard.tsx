@@ -1,7 +1,7 @@
 import { client } from "@/app/client";
 import { NFT } from "thirdweb";
 import { MediaRenderer } from "thirdweb/react";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import html2canvas from "html2canvas";
 
 type OwnedNFTsProps = {
@@ -11,14 +11,14 @@ type OwnedNFTsProps = {
 
 export const NFTCard = ({ nft }: OwnedNFTsProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const modalRef = useRef(null);
 
-    const captureScreenshot = () => {
-        if (modalRef.current) {
-            html2canvas(modalRef.current).then(canvas => {
+    const saveAsImage = () => {
+        const modalElement = document.getElementById('modal-content');
+        if (modalElement) {
+            html2canvas(modalElement).then((canvas) => {
                 const link = document.createElement('a');
                 link.href = canvas.toDataURL('image/png');
-                link.download = 'modal-screenshot.png';
+                link.download = 'nft-share.png';
                 link.click();
             });
         }
@@ -36,7 +36,7 @@ export const NFTCard = ({ nft }: OwnedNFTsProps) => {
                     width: "200px"
                 }}
             />
-            <p>{nft.metadata.name}</p>
+            <p >{nft.metadata.name}</p>
             <button
                 onClick={() => setIsModalOpen(true)}
                 style={{
@@ -61,7 +61,7 @@ export const NFTCard = ({ nft }: OwnedNFTsProps) => {
                     justifyContent: "center",
                     alignItems: "center"
                 }}>
-                    <div ref={modalRef} style={{
+                    <div id="modal-content" style={{
                         minWidth: "300px",
                         backgroundColor: "#222",
                         padding: "20px",
@@ -85,7 +85,7 @@ export const NFTCard = ({ nft }: OwnedNFTsProps) => {
                                 }}
                             >Close</button>
                         </div>
-                        <h3 style={{ margin: "10px 0" }}>You are about to Share</h3>
+                        <h3 style={{ margin: "10px 0" }}>You are about to save your Digital Collectible</h3>
                         <MediaRenderer
                             client={client}
                             src={nft.metadata.image}
@@ -94,16 +94,19 @@ export const NFTCard = ({ nft }: OwnedNFTsProps) => {
                                 marginBottom: "10px"
                             }}
                         />
-                        <p>{nft.metadata.name}</p>
-                        <button onClick={captureScreenshot} style={{
-                            marginTop: "10px",
-                            padding: "10px 20px",
-                            backgroundColor: "#fff",
-                            color: "#000",
-                            border: "none",
-                            borderRadius: "5px",
-                            cursor: "pointer"
-                        }}>Save</button>
+                        <p >{nft.metadata.name}</p>
+                        <button
+                            onClick={saveAsImage}
+                            style={{
+                                border: "none",
+                                backgroundColor: "#4CAF50",
+                                color: "#fff",
+                                padding: "10px",
+                                borderRadius: "10px",
+                                cursor: "pointer",
+                                marginTop: "10px"
+                            }}
+                        >Save as Image</button>
                     </div>
                 </div>
             )}
