@@ -157,6 +157,7 @@ useEffect(() => {
           </p>
         )}
         <br /> <br />
+        {ownedNFTs && ownedNFTs.length < 0 ? ( 
         <div>
           <TransactionButton
             transaction={() => claimTo({
@@ -171,7 +172,7 @@ useEffect(() => {
           >
             {`Claim Digital Collectible`}
           </TransactionButton>
-        </div>
+        </div> ) : (<p>You have already claimed this digital collectible.</p>)}
         <br /> <br />
         <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold">Your Digital Collectibles</h2>
         <br /> <br />
@@ -185,7 +186,7 @@ useEffect(() => {
               />
             ))
           ) : (
-            <p>You own 0 Digital Collectibles</p>
+            <p>You currently own 0 digital collectibles. If it's been over five minutes and the items are still not appearing after refreshing the app, please contact <b>support@goshenlabs.tech</b> for assistance.</p>
           )}
         </div>
       </div>
