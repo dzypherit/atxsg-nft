@@ -164,9 +164,9 @@ useEffect(() => {
               quantity: BigInt(quantity),
             })}
             onTransactionConfirmed={async () => {
-              alert("Digital Collectible Claimed!");
+              alert("Digital Collectible Claimed!, You can check your Digital Collectibles below. If you can't see your claimed Digital Collectibles below then you can refresh this app to check your claimed Digital Collectibles");
               setQuantity(1);
-            }}
+          }}
           >
             {`Claim Digital Collectible`}
           </TransactionButton>
@@ -186,8 +186,7 @@ useEffect(() => {
                             <p>You own 0 Digital Collectibles</p>
                         )}
                     </div>
-        </div>
-        
+              </div>
       </div>
     </main>
   );
