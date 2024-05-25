@@ -7,8 +7,11 @@ import { client } from "./client";
 import { defineChain, getContract, toEther } from "thirdweb";
 import { baseSepolia } from "thirdweb/chains";
 import { getContractMetadata } from "thirdweb/extensions/common";
-import { claimTo, getActiveClaimCondition, getTotalClaimedSupply, nextTokenIdToMint } from "thirdweb/extensions/erc721";
-import { useState } from "react";
+import { claimTo, getNFTs, ownerOf, totalSupply, getActiveClaimCondition, getTotalClaimedSupply, nextTokenIdToMint } from "thirdweb/extensions/erc721";
+import { NFTCard } from "../../components/NFTCard"
+import { NFT } from "thirdweb";
+import { NFT_CONTRACT } from "../../utils/contract";
+import { useEffect, useState } from "react";
 
 
 import {
@@ -52,6 +55,38 @@ export default function Home() {
     const total = quantity * parseInt(claimCondition?.pricePerToken.toString() || "0");
     return toEther(BigInt(total));
   }
+
+  const [ownedNFTs, setOwnedNFTs] = useState<NFT[]>([]);
+
+  const getOwnedNFTs = async () => {
+    let ownedNFTs: NFT[] = [];
+
+    const totalNFTSupply = await totalSupply({
+        contract: NFT_CONTRACT,
+    });
+    const nfts = await getNFTs({
+        contract: NFT_CONTRACT,
+        start: 0,
+        count: parseInt(totalNFTSupply.toString()),
+    });
+    
+    for (let nft of nfts) {
+        const owner = await ownerOf({
+            contract: NFT_CONTRACT,
+            tokenId: nft.id,
+        });
+        if (owner === account?.address) {
+            ownedNFTs.push(nft);
+        }
+    }
+    setOwnedNFTs(ownedNFTs);
+};
+
+useEffect(() => {
+    if(account) {
+        getOwnedNFTs();
+    }
+}, [account]);
 
   const wallets = [
     createWallet("io.metamask"),
@@ -136,8 +171,22 @@ export default function Home() {
             {`Claim Digital Collectible`}
           </TransactionButton>
 
-          
+            <br/> <br/>
+          <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", width: "500px"}}>
+                        {ownedNFTs && ownedNFTs.length > 0 ? (
+                            ownedNFTs.map((nft) => (
+                                <NFTCard
+                                    key={nft.id}
+                                    nft={nft}
+                                    refetch={getOwnedNFTs}
+                                />
+                            ))
+                        ) : (
+                            <p>You own 0 Digital Collectibles</p>
+                        )}
+                    </div>
         </div>
+        
       </div>
     </main>
   );
