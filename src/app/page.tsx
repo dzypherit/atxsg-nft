@@ -172,7 +172,8 @@ useEffect(() => {
           </TransactionButton>
 
             <br/> <br/>
-          <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", width: "500px"}}>
+            <h2>Your Digital Collectibles</h2>
+            <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", width: "500px"}}>
                         {ownedNFTs && ownedNFTs.length > 0 ? (
                             ownedNFTs.map((nft) => (
                                 <NFTCard
@@ -194,7 +195,7 @@ useEffect(() => {
 
 function Header() {
   return (
-    <header className="flex flex-row items-center">
+    <header className=" flex-row items-center">
 
       <h1 className="text-2xl md:text-6xl font-semibold md:font-bold tracking-tighter mb-6 text-zinc-100">
         ATxSG Digital Collectibles
