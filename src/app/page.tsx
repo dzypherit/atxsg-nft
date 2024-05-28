@@ -5,7 +5,7 @@ import { ConnectButton, MediaRenderer, TransactionButton, useActiveAccount, useR
 import thirdwebIcon from "@public/thirdweb.svg";
 import { client } from "./client";
 import { defineChain, getContract, toEther,} from "thirdweb";
-import { baseSepolia } from "thirdweb/chains";
+import { base } from "thirdweb/chains";
 import { getContractMetadata } from "thirdweb/extensions/common";
 import { claimTo, getNFTs, ownerOf, totalSupply, getActiveClaimCondition, getTotalClaimedSupply, nextTokenIdToMint } from "thirdweb/extensions/erc721";
 import { NFTCard } from "../../components/NFTCard"
@@ -24,7 +24,7 @@ export default function Home() {
   const account = useActiveAccount();
 
   // Replace the chain with the chain you want to connect to
-  const chain = defineChain( baseSepolia );
+  const chain = defineChain( base );
 
   const [quantity, setQuantity] = useState(1);
 
@@ -32,7 +32,7 @@ export default function Home() {
   const contract = getContract({
     client: client,
     chain: chain,
-    address: "0x986Ac063a031813Cf1dd9695A7E9b35fc98673c6"
+    address: "0xa6Abe6B3F339F5AB0151D94043ed5B56730441D7"
   });
 
   const { data: contractMetadata, isLoading: isContractMetadataLaoding } = useReadContract( getContractMetadata,
@@ -115,7 +115,7 @@ useEffect(() => {
         client={client}
         wallets={wallets}
         accountAbstraction={{
-          chain: baseSepolia,
+          chain: base,
           factoryAddress: process.env.KALUPAY_SMARTWALLET_FACTORY_ADDRESS,
           gasless: true,
         }}
